@@ -184,3 +184,14 @@ Return the appropriate apiVersion for ingress
 {{- print "networking.k8s.io/v1beta1" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the Keycloak clientId to use.
+*/}}
+{{- define "opencloud.keycloak.clientId" -}}
+{{- if .Values.keycloak.external.enabled }}
+{{- .Values.keycloak.external.clientId }}
+{{- else }}
+web
+{{- end }}
+{{- end }}

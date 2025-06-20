@@ -207,11 +207,11 @@ spec:
             - name: PROXY_ROLE_ASSIGNMENT_DRIVER
               value: "oidc"
             - name: OC_OIDC_ISSUER
-              value: "https://{{ include "opencloud.keycloak.domain" . }}/realms/{{ .Values.keycloak.realm }}"
+              value: "https://{{ include "opencloud.keycloak.domain" . }}/realms/{{ if .Values.keycloak.external.enabled }}{{ .Values.keycloak.external.realm }}{{ else }}{{ .Values.keycloak.realm }}{{ end }}"
             - name: PROXY_OIDC_REWRITE_WELLKNOWN
               value: "true"
             - name: WEB_OIDC_CLIENT_ID
-              value: "web"
+              value: {{ include "opencloud.keycloak.clientId" . | quote }}
             - name: PROXY_USER_OIDC_CLAIM
               value: "preferred_username"
             - name: PROXY_USER_CS3_CLAIM
